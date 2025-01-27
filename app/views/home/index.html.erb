@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h1 class="display-4 mb-4">Bem-vindo ao Sistema de Gerenciamento</h1>
+    <p class="lead">Use os atalhos abaixo para acessar as principais funcionalidades do sistema.</p>
+  </div>
+
+  <div class="row mt-5">
+    <!-- Atalho para Administradores -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Administradores</h5>
+          <p class="card-text">Gerencie os administradores do sistema.</p>
+          <%= link_to "Ir para Administradores", administradors_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Atalho para Empresas -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Empresas</h5>
+          <p class="card-text">Gerencie as empresas cadastradas.</p>
+          <%= link_to "Ir para Empresas", empresas_path, class: "btn btn-success" %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Atalho para Convites -->
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body text-center">
+          <h5 class="card-title">Convites</h5>
+          <p class="card-text">Acompanhe e gerencie os convites enviados.</p>
+          <%= link_to "Ir para Convites", convites_path, class: "btn btn-warning" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
