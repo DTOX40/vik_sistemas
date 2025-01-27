@@ -18,7 +18,7 @@ ENV RAILS_ENV="development" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="test"
 
-# Fase de construção - Instalar as gems
+# Fase de construção - Instalar as gems e dependências JavaScript
 FROM base AS build
 
 # Instalar pacotes necessários para compilar gems
@@ -34,11 +34,14 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
-# Copiar o restante da aplicação
-COPY . .
+# Instalar o Yarn via npm
+RUN npm install -g yarn
+
+# Rodar o comando para gerar os binários, incluindo o bin/rails
+RUN bundle exec rails app:update:bin
 
 # Pré-compilar o código de assets (no modo development, sem precisar da chave secreta)
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
+RUN SECRET_KEY_BASE_DUMMY=1 bundle exec rails assets:precompile
 
 # Fase final - Configuração do ambiente de produção
 FROM base
