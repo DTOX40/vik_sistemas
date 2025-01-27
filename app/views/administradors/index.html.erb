@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3">Administradores</h1>
+    <%= link_to "Adicionar Administrador", new_administrador_path, class: "btn btn-primary" %>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col" class="text-center">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @administradors.each do |admin| %>
+        <tr>
+          <td><%= admin.nome %></td>
+          <td><%= admin.email %></td>
+          <td class="text-center">
+            <%= link_to "Editar", edit_administrador_path(admin), class: "btn btn-sm btn-warning me-2" %>
+            <%= link_to "Excluir", administrador_path(admin), method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-sm btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
