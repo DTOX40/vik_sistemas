@@ -7,10 +7,10 @@ FROM ruby:$RUBY_VERSION-slim AS base
 # Defina o diretório de trabalho
 WORKDIR /vik_sistemas
 
-# Instalar pacotes básicos, incluindo PostgreSQL client e dependências do Rails
+# Instalar pacotes básicos, incluindo Node.js, npm, PostgreSQL client e dependências do Rails
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
-    curl libpq-dev nodejs postgresql-client build-essential git && \
+    curl libpq-dev nodejs npm postgresql-client build-essential git && \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # Defina variáveis de ambiente para a produção
