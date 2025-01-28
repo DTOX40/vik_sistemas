@@ -1,0 +1,43 @@
+<h1>Editar Convite</h1>
+
+<%= form_with model: @convite, url: convite_path(@convite), method: :patch, local: true do |form| %>
+  <% if @convite.errors.any? %>
+    <div class="alert alert-danger">
+      <h4>Erro(s):</h4>
+      <ul>
+        <% @convite.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.email_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :empresa_id, "Empresa" %>
+    <%= form.collection_select :empresa_id, Empresa.all, :id, :nome, { prompt: 'Selecione a Empresa' }, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.select :status, ['ativo', 'inativo'], { prompt: 'Selecione o Status' }, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :data_envio %>
+    <%= form.datetime_local_field :data_envio, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :administrador_id, "Administrador" %>
+    <%= form.collection_select :administrador_id, Administrador.all, :id, :nome, { prompt: 'Selecione o Administrador' }, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit "Atualizar Convite", class: 'btn btn-primary' %>
+  </div>
+<% end %>
