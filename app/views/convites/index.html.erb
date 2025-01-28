@@ -4,29 +4,60 @@
     <%= link_to "Novo Convite", new_convite_path, class: "btn btn-primary" %>
   </div>
 
+  <div class="mb-4">
+    <%= form_with url: convites_path, method: :get, local: true, class: "form-inline" do |form| %>
+      <div class="form-group mr-3">
+        <%= form.label :email, "Email" %>
+        <%= form.text_field :email, class: "form-control", placeholder: "Filtrar por email" %>
+      </div>
+
+      <div class="form-group mr-3">
+        <%= form.label :empresa_id, "Empresa" %>
+        <%= form.collection_select :empresa_id, Empresa.all, :id, :nome, { include_blank: "Selecione" }, class: "form-control" %>
+      </div>
+
+      <div class="form-group mr-3">
+        <%= form.label :status, "Status" %>
+        <%= form.select :status, ["Ativo", "Inativo"], { include_blank: "Selecione" }, class: "form-control" %>
+      </div>
+
+      <div class="form-group mr-3">
+        <%= form.label :start_date, "Data de Início" %>
+        <%= form.date_field :start_date, class: "form-control" %>
+      </div>
+
+      <div class="form-group mr-3">
+        <%= form.label :end_date, "Data de Fim" %>
+        <%= form.date_field :end_date, class: "form-control" %>
+      </div>
+
+      <%= form.submit "Filtrar", class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+
   <table class="table table-hover table-striped">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Email</th>
         <th scope="col">Status</th>
+        <th scope="col">Empresa</th>
         <th scope="col" class="text-center">Ações</th>
       </tr>
     </thead>
     <tbody>
       <% @convites.each do |convite| %>
-      <tr>
-        <td><%= convite.email %></td>
-        <td><%= convite.status %></td>
-        <td><%= convite.empresa.nome %></td>
-        <td>
-          <%= link_to 'Editar', edit_convite_path(convite), class: 'btn btn-primary' %>
-
-          <%= form_with model: convite, method: :delete, local: true, html: { class: 'd-inline' } do |form| %>
-            <%= form.submit 'Excluir', class: 'btn btn-danger', data: { confirm: 'Tem certeza que deseja excluir este convite?' } %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
+        <tr>
+          <td><%= convite.email %></td>
+          <td><%= convite.status %></td>
+          <td><%= convite.empresa.nome %></td>
+          <td>
+            <%= link_to 'Editar', edit_convite_path(convite), class: 'btn btn-primary' %>
+            <%= form_with model: convite, method: :delete, local: true, html: { class: 'd-inline' } do |form| %>
+              <%= form.submit 'Excluir', class: 'btn btn-danger', data: { confirm: 'Tem certeza que deseja excluir este convite?' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 

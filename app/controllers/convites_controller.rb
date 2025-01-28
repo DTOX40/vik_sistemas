@@ -5,7 +5,13 @@ class ConvitesController < ApplicationController
   require_dependency Rails.root.join('app', 'use_cases', 'convites', 'update_invite_use_case').to_s
 
   def index
-    @convites = UseCases::Convites::ListInviteUseCase.new(params.slice(:email, :empresa_id, :status, :data_envio)).execute
+    start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : nil
+    end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : nil
+
+    @convites = UseCases::Convites::ListInviteUseCase.new(
+      params.slice(:email, :empresa_id, :status, :start_date, :end_date)
+             .merge({ start_date: start_date, end_date: end_date })
+    ).execute
   end
 
   def new

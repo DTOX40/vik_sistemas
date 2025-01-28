@@ -2,6 +2,10 @@
   <div class="text-center">
     <h1 class="display-4 mb-4">Bem-vindo ao Sistema de Gerenciamento de Convites</h1>
     <p class="lead">Use os atalhos abaixo para acessar as principais funcionalidades do sistema.</p>
+
+    <%= form_with url: logout_path, method: :delete, class: 'd-inline' do %>
+      <%= submit_tag 'Logout', class: 'btn btn-danger mb-4' %>
+    <% end %>
   </div>
 
   <div class="row mt-5">
