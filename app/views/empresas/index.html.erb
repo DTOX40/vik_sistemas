@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3">Lista de Empresas</h1>
+    <%= link_to "Nova Empresa", new_empresa_path, class: "btn btn-primary" %>
+  </div>
+
+  <table class="table table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Telefone</th>
+        <th scope="col" class="text-center">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @empresas.each do |empresa| %>
+        <tr>
+          <td><%= empresa.nome %></td>
+          <td><%= empresa.email %></td>
+          <td><%= empresa.telefone %></td>
+          <td class="text-center">
+            <div class="btn-group" role="group" aria-label="Ações">
+              <%= link_to "Editar", edit_empresa_path(empresa), class: 'btn btn-primary' %>
+
+              <%= form_with(model: empresa, method: :delete, data: { confirm: "Tem certeza que deseja excluir esta empresa?" }, local: true) do |form| %>
+                <%= submit_tag 'Excluir', class: 'btn btn-danger' %>
+              <% end %>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <%= link_to 'Página Principal', root_path, class: 'btn btn-secondary mt-4' %>
+</div>
