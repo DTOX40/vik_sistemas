@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "home#index"
 
-  resources :administradors, except: [:show]
-  resources :empresas, except: [:show]
-  resources :convites, except: [:show]
+  resources :administradors, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+
+  resources :empresas, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :convites, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 end
