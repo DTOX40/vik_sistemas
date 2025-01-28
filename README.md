@@ -1,24 +1,37 @@
-# README
+# Sistema de Convites
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Este é um sistema desenvolvido em Ruby on Rails para gerenciar convites. Siga as instruções abaixo para rodar o projeto localmente.
 
-Things you may want to cover:
+## Requisitos
 
-* Ruby version
+- Ruby 3.3.5
+- Rails 7.2.2.1
+- Docker
+- Docker Compose
 
-* System dependencies
+## Como rodar o projeto
 
-* Configuration
+### 1. Clonar o repositório
 
-* Database creation
+Clone o repositório para sua máquina:
 
-* Database initialization
 
-* How to run the test suite
+git clone <URL_DO_REPOSITORIO>
+cd <DIRETORIO_DO_PROJETO>
 
-* Services (job queues, cache servers, search engines, etc.)
+docker-compose build
 
-* Deployment instructions
+#
+Após o build, crie o banco de dados, rode as migrations e seeds:
+#
 
-* ...
+docker-compose run web rake db:create
+docker-compose run web rake db:migrate
+docker-compose run web rake db:seed
+
+#
+O sistema estará disponível em:
+#
+http://0.0.0.0:3000/login
+
+```bash
