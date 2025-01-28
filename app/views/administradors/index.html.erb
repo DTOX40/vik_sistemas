@@ -13,16 +13,21 @@
       </tr>
     </thead>
     <tbody>
-      <% @administradors.each do |admin| %>
+      <% @administradors.each do |administrador| %>
         <tr>
-          <td><%= admin.nome %></td>
-          <td><%= admin.email %></td>
-          <td class="text-center">
-            <%= link_to "Editar", edit_administrador_path(admin), class: "btn btn-sm btn-warning me-2" %>
-            <%= link_to "Excluir", administrador_path(admin), method: :delete, data: { confirm: "Tem certeza?" }, class: "btn btn-sm btn-danger" %>
+          <td><%= administrador.nome %></td>
+          <td><%= administrador.email %></td>
+          <td>
+            <%= link_to 'Editar', edit_administrador_path(administrador), class: 'btn btn-primary' %>
+
+            <%= form_with(url: administrador_path(administrador), method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: 'd-inline') do %>
+              <%= submit_tag 'Excluir', class: 'btn btn-danger' %>
+            <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
+
+  <%= link_to 'Pagina Principal', root_path, class: 'btn btn-secondary mt-4' %>
 </div>

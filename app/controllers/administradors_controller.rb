@@ -1,8 +1,8 @@
 class AdministradorsController < ApplicationController
-  before_action :set_administrador, only: %i[edit update destroy]
+  before_action :set_administrador, only: [:show, :edit, :update, :destroy]
 
   def index
-    @administradors = Administrador.all
+    @administradors = Administradors::ListAdministradorsUseCase.new.execute
   end
 
   def new
@@ -10,12 +10,12 @@ class AdministradorsController < ApplicationController
   end
 
   def create
-    result = Administradors::CreateAdministrador.call(administrador_params)
-    if result[:success]
+    result = Administradors::CreateAdministradorUseCase.new(administrador_params).execute
+    if result.success?
       redirect_to administradors_path, notice: "Administrador criado com sucesso."
     else
       @administrador = Administrador.new(administrador_params)
-      flash.now[:alert] = result[:errors].join(", ")
+      flash.now[:alert] = result.errors.join(", ")
       render :new
     end
   end
@@ -23,7 +23,7 @@ class AdministradorsController < ApplicationController
   def edit; end
 
   def update
-    result = Administradors::UpdateAdministrador.call(@administrador, administrador_params)
+    result = Administradors::UpdateAdministradorUseCase.new(@administrador, administrador_params).execute
     if result[:success]
       redirect_to administradors_path, notice: "Administrador atualizado com sucesso."
     else
@@ -32,15 +32,28 @@ class AdministradorsController < ApplicationController
     end
   end
 
+  def show
+    @administrador = Administrador.find(params[:id])
+  end
+
   def destroy
-    Administradors::DestroyAdministrador.call(@administrador)
-    redirect_to administradors_path, notice: "Administrador excluído com sucesso."
+    use_case = Administradors::DestroyAdministradorUseCase.new(@administrador)
+    result = use_case.execute
+
+    if result.success?
+      redirect_to administradors_path, notice: 'Administrador excluído com sucesso.'
+    else
+      redirect_to administradors_path, alert: 'Erro ao excluir administrador.'
+    end
   end
 
   private
 
   def set_administrador
-    @administrador = Administrador.find(params[:id])
+    @administrador = Administrador.find_by(id: params[:id])
+    if @administrador.nil?
+      redirect_to administradors_path, alert: "Administrador não encontrado."
+    end
   end
 
   def administrador_params

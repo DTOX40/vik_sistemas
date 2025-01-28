@@ -1,2 +1,38 @@
-<h1>Administradors#edit</h1>
-<p>Find me in app/views/administradors/edit.html.erb</p>
+<h1>Editar Administrador</h1>
+
+<%= form_with(model: @administrador, local: true) do |form| %>
+  <% if @administrador.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+        <% @administrador.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :nome, class: 'form-label' %>
+    <%= form.text_field :nome, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :email, class: 'form-label' %>
+    <%= form.email_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password, class: 'form-label' %>
+    <%= form.password_field :password, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password_confirmation, class: 'form-label' %>
+    <%= form.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+
+  <div class="d-flex justify-content-between">
+    <%= form.submit 'Atualizar', class: 'btn btn-primary' %>
+    <%= link_to 'Voltar', administradors_path, class: 'btn btn-secondary' %>
+  </div>
+<% end %>
