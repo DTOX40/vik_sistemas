@@ -30,8 +30,8 @@ docker-compose run web rake db:migrate
 docker-compose run web rake db:seed
 
 #
-O sistema estará disponível em:
+O sistema estará disponível em: http://0.0.0.0:3000/login
+  email: admin@teste.com
+  password: senha123
 #
-http://0.0.0.0:3000/login
-
 ```bash
