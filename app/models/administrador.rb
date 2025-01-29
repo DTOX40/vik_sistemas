@@ -5,4 +5,6 @@ class Administrador < ApplicationRecord
   has_many :empresas, through: :convites
 
   validates :email, presence: true, uniqueness: true
+  validates :nome, presence: true
+  validates :password, presence: true
 end

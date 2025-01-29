@@ -8,7 +8,7 @@ module Administradors
 
     def execute
       administrador = Administrador.new(@params)
-      if administrador.save
+      if administrador.valid? && administrador.save
         OpenStruct.new(success?: true, administrador: administrador, errors: [])
       else
         OpenStruct.new(success?: false, errors: administrador.errors.full_messages)

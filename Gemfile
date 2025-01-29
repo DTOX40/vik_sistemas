@@ -15,11 +15,14 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 group :development, :test do
+  gem 'pry', '~> 0.14.1'
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
-
   gem "brakeman", require: false
-
   gem "rubocop-rails-omakase", require: false
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'rails-controller-testing'
 end
 
 group :development do

@@ -32,9 +32,9 @@ class ConvitesController < ApplicationController
   def update
     @convite = Convite.find(params[:id])
     if @convite.update(convite_params)
-      redirect_to convites_path, notice: 'Convite atualizado com sucesso!'
+      @convite.update(status: 'accepted')
+      redirect_to convites_path
     else
-      @administradores = Administrador.all
       render :edit
     end
   end

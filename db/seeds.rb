@@ -1,9 +1,8 @@
-
-User.create!(
+Administrador.create!(
   email: 'admin@teste.com',
-  password: 'senhaSegura123',
+  password: 'senha123',
   password_confirmation: 'senha123',
   role: 'admin'
 )
 
-puts "Usuário admin criado com sucesso!"
+puts "Administrador criado com sucesso!"

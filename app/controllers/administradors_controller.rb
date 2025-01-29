@@ -10,12 +10,13 @@ class AdministradorsController < ApplicationController
   end
 
   def create
-    result = Administradors::CreateAdministradorUseCase.new(administrador_params).execute
-    if result.success?
-      redirect_to administradors_path, notice: "Administrador criado com sucesso."
+    administrador = Administrador.find_by(email: params[:email])
+    if administrador&.authenticate(params[:password])
+      session[:administrador_id] = administrador.id
+      logger.debug "Administrador logado: #{administrador.email}"  # Debug
+      redirect_to welcome_path
     else
-      @administrador = Administrador.new(administrador_params)
-      flash.now[:alert] = result.errors.join(", ")
+      flash[:alert] = 'Credenciais inválidas'
       render :new
     end
   end

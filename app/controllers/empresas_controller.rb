@@ -10,13 +10,13 @@ class EmpresasController < ApplicationController
   end
 
   def create
-    result = Empresas::CreateEmpresaUseCase.new(empresa_params).call
+    use_case = Empresas::CreateEmpresaUseCase.new(empresa_params)
+    result = use_case.call
 
     if result.success?
-      redirect_to empresas_path, notice: "Empresa criada com sucesso!"
+      redirect_to empresas_path
     else
-      @empresa = Empresa.new
-      @errors = result.errors
+      flash[:error] = result.errors.to_sentence
       render :new
     end
   end
@@ -53,7 +53,7 @@ class EmpresasController < ApplicationController
   private
 
   def empresa_params
-    params.require(:empresa).permit(:nome, :email, :telefone)
+    params.require(:empresa).permit(:nome, :email, :telefone, :cnpj, :descricao)
   end
 
   def set_empresa
