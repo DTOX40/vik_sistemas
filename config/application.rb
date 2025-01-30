@@ -38,5 +38,10 @@ module VikSistemas
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = :local
+    config.i18n.default_locale = 'pt-BR'
+
+    config.active_support.to_time_preserves_timezone = true
   end
 end
