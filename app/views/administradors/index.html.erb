@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3">Administradores</h1>
-    <%= link_to "Adicionar Administrador", new_administrador_path, class: "btn btn-primary" %>
+    <h1 class="h3">Lista de Administradores</h1>
+    <%= link_to "Novo Administrador", new_administradors_path, class: "btn btn-primary" %>
   </div>
 
   <table class="table table-hover table-striped">
@@ -17,17 +17,15 @@
         <tr>
           <td><%= administrador.nome %></td>
           <td><%= administrador.email %></td>
-          <td>
-            <%= link_to 'Editar', edit_administrador_path(administrador), class: 'btn btn-primary' %>
+          <td class="text-center">
+            <%= link_to "Editar", edit_administradors_path(administrador), class: 'btn btn-primary' %>
 
-            <%= form_with(url: administrador_path(administrador), method: :delete, data: { confirm: 'Tem certeza que deseja excluir?' }, class: 'd-inline') do %>
-              <%= submit_tag 'Excluir', class: 'btn btn-danger' %>
+            <%= form_with url: administradors_path(administrador), method: :delete, local: true, class: 'd-inline' do %>
+              <%= submit_tag "Excluir", data: { confirm: "Tem certeza?" }, class: 'btn btn-danger' %>
             <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-
-  <%= link_to 'Pagina Principal', root_path, class: 'btn btn-secondary mt-4' %>
 </div>

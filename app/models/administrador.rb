@@ -1,4 +1,5 @@
 class Administrador < ApplicationRecord
+  self.table_name = 'administradors'
   has_secure_password
 
   has_many :convites

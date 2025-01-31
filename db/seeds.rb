@@ -45,21 +45,24 @@ puts "Criando convites..."
     empresa: empresa_a,
     administrador: admin1,
     status: "ativo",
-    created_at: DateTime.new(2024, 12, 15)
+    created_at: DateTime.new(2024, 12, 15),
+    data_envio: DateTime.new(2024, 12, 15) # Adicionando data_envio
   )
 end
 
-# Janeiro de 2025 - 2 convites desativados
+# Janeiro de 2025 - 2 convites inativos
 2.times do |i|
   Convite.create!(
     email: "desativado#{i}@empresa-a.com",
     empresa: empresa_a,
     administrador: admin1,
-    status: "desativado",
-    created_at: DateTime.new(2025, 1, 10)
+    status: "inativo", # Alterado de "desativado" para "inativo"
+    created_at: DateTime.new(2025, 1, 10),
+    data_envio: DateTime.new(2025, 1, 10) # Adicionando data_envio
   )
 end
 
+# Fevereiro de 2025 - Convites ativos
 8.times do |i|
   Convite.create!(
     email: "usuario#{i+10}@empresa-a.com",
@@ -67,7 +70,7 @@ end
     administrador: admin1,
     status: "ativo",
     created_at: DateTime.new(2025, 2, 5),
-    data_envio: DateTime.new(2025, 2, 5)
+    data_envio: DateTime.new(2025, 2, 5) # Garantindo data_envio
   )
 end
 

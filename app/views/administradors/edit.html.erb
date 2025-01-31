@@ -1,6 +1,6 @@
 <h1>Editar Administrador</h1>
 
-<%= form_with(model: @administrador, local: true) do |form| %>
+<%= form_with(model: @administrador, url: administradors_path(@administrador), method: :patch, local: true) do |form| %>
   <% if @administrador.errors.any? %>
     <div class="alert alert-danger">
       <ul>
@@ -33,6 +33,6 @@
 
   <div class="d-flex justify-content-between">
     <%= form.submit 'Atualizar', class: 'btn btn-primary' %>
-    <%= link_to 'Voltar', administradors_path, class: 'btn btn-secondary' %>
+    <%= link_to 'Voltar', administradors_index_path, class: 'btn btn-secondary' %>
   </div>
 <% end %>

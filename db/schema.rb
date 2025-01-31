@@ -45,6 +45,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_01_29_061407) do
     t.string "cnpj"
   end
 
-  add_foreign_key "convites", "administradors"
+  add_foreign_key "convites", "administradors", column: "administrador_id"
   add_foreign_key "convites", "empresas"
 end
