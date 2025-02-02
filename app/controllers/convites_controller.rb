@@ -30,11 +30,12 @@ class ConvitesController < ApplicationController
   end
 
   def update
-    @convite = Convite.find(params[:id])
-    if @convite.update(convite_params)
-      @convite.update(status: 'accepted')
-      redirect_to convites_path
+    use_case = UseCases::Convites::UpdateInviteUseCase.new(params[:id], convite_params)
+
+    if use_case.execute
+      redirect_to convites_path, notice: 'Convite atualizado com sucesso!'
     else
+      @convite = Convite.find(params[:id])
       render :edit
     end
   end

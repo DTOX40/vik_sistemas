@@ -9,6 +9,8 @@ gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails'
 gem 'importmap-rails'
 gem "bcrypt", "~> 3.1.7"
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

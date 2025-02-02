@@ -1,4 +1,4 @@
-<%= form_with(model: administrador, local: true) do |form| %>
+<%= form_with(model: @administrador, url: administradors_index_path, local: true) do |form| %>
   <% if flash[:alert] %>
     <div class="alert alert-danger"><%= flash[:alert] %></div>
   <% end %>

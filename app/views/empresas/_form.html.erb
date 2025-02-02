@@ -14,6 +14,11 @@
   </div>
 
   <div class="form-group">
+    <%= form.label :cnpj %>
+    <%= form.text_field :cnpj, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= form.label :telefone %>
     <%= form.telephone_field :telefone, class: "form-control", required: true %>
   </div>

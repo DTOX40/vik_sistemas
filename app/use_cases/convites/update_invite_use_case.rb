@@ -7,8 +7,8 @@ module UseCases
       end
 
       def execute
-        invite = Invite.find(@invite_id)
-        invite.update(@invite_params)
+        convite = Convite.find(@invite_id)
+        convite.update(@invite_params)
       end
     end
   end

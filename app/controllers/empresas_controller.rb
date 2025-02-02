@@ -14,10 +14,11 @@ class EmpresasController < ApplicationController
     result = use_case.call
 
     if result.success?
-      redirect_to empresas_path
+      redirect_to empresas_path, notice: "Empresa criada com sucesso!"
     else
+      @empresa = Empresa.new(empresa_params)
       flash[:error] = result.errors.to_sentence
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -31,8 +32,8 @@ class EmpresasController < ApplicationController
     if result.success?
       redirect_to empresas_path, notice: "Empresa atualizada com sucesso!"
     else
-      @errors = result.errors
-      render :edit
+      flash[:error] = result.errors.to_sentence
+      render :edit, status: :unprocessable_entity
     end
   end
 

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy', as: 'logout'
 
   get '/welcome', to: 'welcome#index'
-  resources :administradors, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  resources :administradors, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :empresas, only: [:index, :show, :new, :create, :edit, :update, :destroy]
   resources :convites, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 end

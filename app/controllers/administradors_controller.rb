@@ -2,7 +2,15 @@ class AdministradorsController < ApplicationController
   before_action :set_administrador, only: [:show, :edit, :update, :destroy]
 
   def index
-    @administradors = Administradors::ListAdministradorsUseCase.new.execute
+    start_date = params[:start_date].present? ? Date.parse(params[:start_date]) : nil
+    end_date = params[:end_date].present? ? Date.parse(params[:end_date]) : nil
+
+    @convites = UseCases::Convites::ListInviteUseCase.new(
+      params.slice(:email, :empresa_id, :status, :start_date, :end_date)
+             .merge({ start_date: start_date, end_date: end_date })
+    ).execute
+
+    @convites = @convites.paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -10,14 +18,14 @@ class AdministradorsController < ApplicationController
   end
 
   def create
-    administrador = Administrador.find_by(email: params[:email])
-    if administrador&.authenticate(params[:password])
-      session[:administrador_id] = administrador.id
-      logger.debug "Administrador logado: #{administrador.email}"  # Debug
-      redirect_to welcome_path
+    use_case = Administradors::CreateAdministradorUseCase.new(administrador_params).execute
+
+    if use_case.success?
+      redirect_to administradors_index_path, notice: "Administrador criado com sucesso!"
     else
-      flash[:alert] = 'Credenciais inválidas'
-      render :new
+      @administrador = Administrador.new(administrador_params)
+      flash[:alert] = use_case.errors.join(", ")
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -42,9 +50,9 @@ class AdministradorsController < ApplicationController
     result = use_case.execute
 
     if result.success?
-      redirect_to administradors_path, notice: 'Administrador excluído com sucesso.'
+      redirect_to administradors_index_path, notice: 'Administrador excluído com sucesso.'
     else
-      redirect_to administradors_path, alert: 'Erro ao excluir administrador.'
+      redirect_to administradors_index_path, alert: 'Erro ao excluir administrador.'
     end
   end
 
